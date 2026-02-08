@@ -51,16 +51,15 @@ def fetch_data(exchange, pair, tf):
     )
 
 
-def footer():
-    return (
-        "\n\n🤖 <b>Source:</b> GitHub Actions (Automated)"
-        "\n⏰ <b>Reminder:</b> Signal confirmed on candle close"
-    )
-
-
 def main():
     exchange = ccxt.mexc()
     state = load_state()
+
+    # ✅ BOT STARTED MESSAGE (ONLY THIS)
+    send_telegram(
+        "🤖 <b>Crypto Signals Bot Started</b>\n"
+        "⚙️ <b>Running via GitHub Actions</b>"
+    )
 
     for pair in PAIRS:
         for tf in TIMEFRAMES:
@@ -89,8 +88,8 @@ def main():
                             f"📊 Pair: {pair}\n"
                             f"⏱ Timeframe: {tf}\n"
                             f"💰 Price: {curr.close:.2f}\n"
-                            f"🕒 UTC: {utc}"
-                            + footer()
+                            f"🕒 UTC: {utc}\n\n"
+                            "⚙️ Running via GitHub Actions"
                         )
                         pair_state["ema"] = "BUY"
 
@@ -102,8 +101,8 @@ def main():
                             f"📊 Pair: {pair}\n"
                             f"⏱ Timeframe: {tf}\n"
                             f"💰 Price: {curr.close:.2f}\n"
-                            f"🕒 UTC: {utc}"
-                            + footer()
+                            f"🕒 UTC: {utc}\n\n"
+                            "⚙️ Running via GitHub Actions"
                         )
                         pair_state["ema"] = "SELL"
 
@@ -111,13 +110,13 @@ def main():
                 if prev.close <= swing_high and curr.close > swing_high:
                     if pair_state.get("breakout") != "BULLISH":
                         send_telegram(
-                            f"🚀 <b>BULLISH BREAKOUT CONFIRMED</b>\n\n"
+                            f"🚀 <b>BULLISH BREAKOUT</b>\n\n"
                             f"📊 Pair: {pair}\n"
                             f"⏱ Timeframe: {tf}\n"
                             f"📈 Level: {swing_high:.2f}\n"
                             f"💰 Price: {curr.close:.2f}\n"
-                            f"🕒 UTC: {utc}"
-                            + footer()
+                            f"🕒 UTC: {utc}\n\n"
+                            "⚙️ Running via GitHub Actions"
                         )
                         pair_state["breakout"] = "BULLISH"
 
@@ -125,13 +124,13 @@ def main():
                 elif prev.close >= swing_low and curr.close < swing_low:
                     if pair_state.get("breakout") != "BEARISH":
                         send_telegram(
-                            f"📉 <b>BEARISH BREAKDOWN CONFIRMED</b>\n\n"
+                            f"📉 <b>BEARISH BREAKDOWN</b>\n\n"
                             f"📊 Pair: {pair}\n"
                             f"⏱ Timeframe: {tf}\n"
                             f"📉 Level: {swing_low:.2f}\n"
                             f"💰 Price: {curr.close:.2f}\n"
-                            f"🕒 UTC: {utc}"
-                            + footer()
+                            f"🕒 UTC: {utc}\n\n"
+                            "⚙️ Running via GitHub Actions"
                         )
                         pair_state["breakout"] = "BEARISH"
 
@@ -145,4 +144,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-                                      
+                
