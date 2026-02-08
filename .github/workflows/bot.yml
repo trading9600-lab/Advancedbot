@@ -2,7 +2,7 @@ name: Crypto Signal Bot (MEXC)
 
 on:
   schedule:
-    - cron: "*/15 * * * *"
+    - cron: "*/5 * * * *"   # ✅ Runs every 5 minutes
   workflow_dispatch:
 
 jobs:
